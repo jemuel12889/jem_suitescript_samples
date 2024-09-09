@@ -4,6 +4,7 @@
  * @NModuleScope Public
  */
 
+//A simple Hello, World script
 define([], function(){
     var exports = {};
     function pageInit(context) {
