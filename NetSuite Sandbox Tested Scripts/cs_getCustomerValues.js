@@ -3,6 +3,8 @@
  * @NScriptType ClientScript
  */
 
+//Logging some Customer Record Field Values into the console
+//I used this to determine specific value types of some fields to use in a script to create a record
 define([], function() {
     function pageInit(context) {
         var currentRecord = context.currentRecord;
