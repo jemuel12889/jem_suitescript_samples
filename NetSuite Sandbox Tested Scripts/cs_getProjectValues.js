@@ -3,6 +3,7 @@
  * @NScriptType ClientScript
  */
 
+//This script is only used to get information about the Project Record Type
 define([], function() {
     function pageInit(context) {
         var projectRecord = context.currentRecord;
