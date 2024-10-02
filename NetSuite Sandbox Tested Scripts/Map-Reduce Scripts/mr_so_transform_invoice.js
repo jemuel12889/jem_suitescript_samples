@@ -22,10 +22,13 @@ define(['N/record', 'N/search'], (record, search) => {
     function map(context) {
         // Accessing the data from Get Input Stage using the context parameter
         let soId = context.key;
+        let salesOrderRec = JSON.parse(context.value);
+
+        let customer = salesOrderRec.values.entity.text;
 
         try {
             // Using record.transform(options) to transform the current Sales Order using its Internal ID that is retrieved as context.key
-            log.debug('Record Transform', `Transforming Sales Order #${soId} into Invoice.`);
+            log.debug('Record Transform', `Transforming Sales Order #${soId} into Invoice for ${customer}.`);
             let soInvoice = record.transform({
                 fromType : record.Type.SALES_ORDER,
                 fromId : soId,
@@ -47,7 +50,7 @@ define(['N/record', 'N/search'], (record, search) => {
 
             // Saving the new Invoice Record
             let invoiceId = soInvoice.save();
-            log.debug('Invoice Created', `Created Invoice #${invoiceId} from Sales Order #${soId}`);
+            log.debug('Invoice Created', `Created Invoice #${invoiceId} from Sales Order #${soId} by ${customer}.`);
             
         } catch (error) {
             log.error('Transform Failure', error);
