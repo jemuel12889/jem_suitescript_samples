@@ -21,12 +21,14 @@ define(['N/record', 'N/search'], (record, search) => {
 
     function map(context) {
         // Accessing the data from Get Input Stage using the context parameter
-        let soResults = JSON.parse(context.value);
         let salesOrderId = context.key;
+        let salesOrderRec = JSON.parse(context.value);
+
+        let customer = salesOrderRec.values.entity.text;
 
         try {
             // Using record.transform(options) to transform the current Sales Order using its Internal ID that is retrieved as context.key
-            log.debug('Record Transform' ,`Transforming Sales Order Internal ID: ${salesOrderId} into Item Fulfillment`);
+            log.debug('Record Transform' ,`Transforming Sales Order Internal ID: ${salesOrderId} into Item Fulfillment for ${customer}`);
             let itemFulfillTransform = record.transform({
                 fromType : record.Type.SALES_ORDER,
                 fromId : salesOrderId,
@@ -45,7 +47,7 @@ define(['N/record', 'N/search'], (record, search) => {
     
             // Saving the new Item Fulfillment Record
             let itemFulfillId = itemFulfillTransform.save();
-            log.debug('Transform Successful', `Sales Order #${salesOrderId} is transformed to Item Fulfillment #${itemFulfillId}`);
+            log.debug('Transform Successful', `Sales Order #${salesOrderId} is transformed to Item Fulfillment #${itemFulfillId} for ${customer}.`);
         } catch (error) {
             log.error('Transform Failure', error);
         }
